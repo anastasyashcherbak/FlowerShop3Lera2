@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS `flowers`;
 DROP TABLE IF EXISTS `flowerbanks`;
 DROP TABLE IF EXISTS `bouquets`;
 DROP TABLE IF EXISTS `holidays`;
-DROP TABLE IF EXISTS `usercalendars`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE IF NOT EXISTS `flowers` (
@@ -37,16 +36,9 @@ CREATE TABLE IF NOT EXISTS `bouquets` (
 
 CREATE TABLE IF NOT EXISTS `holidays` (
   `ID`        INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `date`  DATETIME DEFAULT NULL,
+  `date`     VARCHAR(50) DEFAULT NULL,
   `description`     VARCHAR(50) DEFAULT NULL,
-  `usercalendar_id`  INT(11)
-)
-  ENGINE =InnoDB
-  DEFAULT CHARSET =utf8;
-
-CREATE TABLE IF NOT EXISTS `usercalendars` (
-  `ID`        INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id  INT(11)
+  `user_id`  INT(11)
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8;
@@ -61,26 +53,23 @@ ALTER TABLE `flowerbanks` ADD CONSTRAINT `fk_bouquet_flowerBank` FOREIGN KEY (`b
 ALTER TABLE `bouquets` ADD CONSTRAINT `fk_holiday_bouquet` FOREIGN KEY (`holiday_id`) REFERENCES `holidays` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-ALTER TABLE `holidays` ADD CONSTRAINT `fk_usercalendar_holiday` FOREIGN KEY (`usercalendar_id`) REFERENCES `usercalendars` (`id`)
+ALTER TABLE `holidays` ADD CONSTRAINT `fk_user_holiday` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 ###############################
 
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `users`;
+SET FOREIGN_KEY_CHECKS=1;
+
 CREATE TABLE IF NOT EXISTS users (
   `ID`        INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(45) NOT NULL ,
   password VARCHAR(45) NOT NULL ,
   enabled TINYINT NOT NULL DEFAULT 1 ,
   role VARCHAR(45) NOT NULL
-#   userCalendar_id  INT(11)
 );
-# ALTER TABLE `users` ADD CONSTRAINT `fk_user_userCalendar` FOREIGN KEY (`userCalendar_id`) REFERENCES `usercalendars` (`id`)
-#   ON DELETE CASCADE
-#   ON UPDATE CASCADE;
-ALTER TABLE `usercalendars` ADD CONSTRAINT `fk_user_userCalendar` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+
 
 
 INSERT INTO users(username,password,enabled,role)

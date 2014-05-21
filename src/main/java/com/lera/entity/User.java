@@ -2,6 +2,8 @@ package com.lera.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by panser on 5/18/14.
@@ -20,8 +22,8 @@ public class User {
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "userCalendar_id")
-    @OneToOne(mappedBy = "user")
-    private UserCalendar userCalendar;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Holiday> holidays = new ArrayList<Holiday>();;
 
     public User() {
         enabled = true;
@@ -68,12 +70,17 @@ public class User {
         this.role = role;
     }
 
-    public UserCalendar getUserCalendar() {
-        return userCalendar;
+    public List<Holiday> getHolidays() {
+        return holidays;
     }
 
-    public void setUserCalendar(UserCalendar userCalendar) {
-        this.userCalendar = userCalendar;
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
+    }
+
+    public void addHoliday(Holiday holiday){
+        this.holidays.add(holiday);
+        holiday.assignToUser(this);
     }
 
     @Override
@@ -84,7 +91,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", role='" + role + '\'' +
-                ", userCalendar=" + userCalendar +
                 '}';
     }
 }

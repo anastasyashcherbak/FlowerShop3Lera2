@@ -1,7 +1,7 @@
 package com.lera.dao;
 
 import com.lera.entity.Holiday;
-import com.lera.entity.UserCalendar;
+import com.lera.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -21,9 +21,25 @@ public class HolidayImplHibernate implements HolidaysDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Holiday> find(UserCalendar userCalendar) {
+    public List<Holiday> find(User user) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Holiday.class);
-        List<Holiday> holidays = criteria.add(Restrictions.like("userCalendar", userCalendar)).list();
+        List<Holiday> holidays = criteria.add(Restrictions.like("user", user)).list();
         return holidays;
     }
+
+    @Override
+    public Holiday find(Integer id) {
+        return (Holiday) sessionFactory.getCurrentSession().get(Holiday.class, id);
+    }
+
+    @Override
+    public Holiday merge(Holiday holiday) {
+        return (Holiday)sessionFactory.getCurrentSession().merge(holiday);
+    }
+
+    @Override
+    public void delete(Holiday holiday) {
+        sessionFactory.getCurrentSession().delete(holiday);
+    }
+
 }

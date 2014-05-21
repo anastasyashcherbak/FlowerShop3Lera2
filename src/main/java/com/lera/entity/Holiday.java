@@ -14,15 +14,44 @@ public class Holiday {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date date;
+    private String date;
     private String description;
+
+
 
     @ElementCollection(fetch=FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "holiday")
     private List<Bouquet> bouquets;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "usercalendar_id", referencedColumnName = "id")
-    private UserCalendar userCalendar;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void assignToUser(User user){
+        this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

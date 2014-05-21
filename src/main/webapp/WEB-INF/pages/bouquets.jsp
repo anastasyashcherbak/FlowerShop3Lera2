@@ -44,45 +44,35 @@
 
 
 <code>
-    <h1>List Holidays:</h1>
+    <h1>List Bouquets:</h1>
     <table>
-        <c:forEach items="${holidays}" var="holiday">
+        <c:forEach items="${bouquets}" var="bouquet">
             <tr>
-                <td>
-                <a href="<c:url value="/bouquets/get/${holiday.id}"/>">
-                    <c:out value="${holiday.description}"/>
-                </a>
-                </td>
-                <td>
-                <a href="<c:url value="/bouquets/get/${holiday.id}"/>">
-                    <c:out value="${holiday.date}"/>
-                </a>
-                </td>
-
+                <td><c:out value="${bouquet.name}"/> </td>
             </tr>
         </c:forEach>
     </table>
     <tr/>
 
-
-    <h1>Add Holiday:</h1>
-    <div>
-        <sf:form name="f" method="POST" modelAttribute="newHoliday">
-            <fieldset>
-                <sf:label path="date">Holiday date: </sf:label>
-                <sf:input path="date" id="date"/>
-                <p/>
-                <sf:label path="description">Holiday description: </sf:label>
-                <sf:input path="description" id="description"/>
-                <p/>
-                <br/>
-
-                <input name="commit" type="submit" value="Add" />
-            </fieldset>
-        </sf:form>
-
-    </div>
-
+    <%--
+        <h1>Add bouquet:</h1>
+        <div>
+            <sf:form name="f" method="POST" modelAttribute="bouquet">
+                <fieldset>
+                    <sf:label path="date">bouquet date: </sf:label>
+                    <sf:input path="date" id="date"/>
+                    <p/>
+                    <sf:label path="description">bouquet description: </sf:label>
+                    <sf:input path="description" id="description"/>
+                    <p/>
+                    <br/>
+    
+                    <input name="commit" type="submit" value="Add" />
+                </fieldset>
+            </sf:form>
+    
+        </div>
+    --%>
 </code>
 </body>
 </html>

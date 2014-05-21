@@ -1,7 +1,6 @@
 package com.lera.dao;
 
 import com.lera.entity.User;
-import com.lera.entity.UserCalendar;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

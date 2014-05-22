@@ -44,11 +44,11 @@ public class HolidayController {
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET, produces = {MediaType.TEXT_HTML_VALUE})
     public String holidayGETById(Model model, @PathVariable String id){
+        log.trace("holidayGETById(), id " + id + "/n");
         Holiday holiday = holidayService.find(Integer.parseInt(id));
-        log.trace("holidayGETById, holidays = " + holiday);
         model.addAttribute("holiday", holiday);
 
-        return "/bouquets";
+        return "/holidays";
     }
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.POST)

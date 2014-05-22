@@ -34,14 +34,14 @@ public class BouquetController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = {"/get/{id}"}, method = RequestMethod.GET, produces = {MediaType.TEXT_HTML_VALUE})
-    public String holidaysGET(Model model, @PathVariable String id){
-        log.trace("\n\nid " + id);
+    public String bouquetGET(Model model, @PathVariable String id){
+        log.trace("bouquetGET(), id " + id + "/n");
         Holiday holiday = holidayService.find(Integer.parseInt(id));
 
         List<Bouquet> bouquets = bouquetService.find(holiday);
         model.addAttribute("bouquets", bouquets);
 
-        return "/holidays";
+        return "/bouquets";
     }
 }
 

@@ -1,6 +1,7 @@
 package com.lera.service;
 
 import com.lera.dao.FlowerBankDAO;
+import com.lera.entity.Bouquet;
 import com.lera.entity.FlowerBank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class FlowerBankService {
     public FlowerBank find(Integer id) {
         FlowerBank flowerBank = flowerBankDAO.find(id);
         return flowerBank;
+    }
+    @Transactional(readOnly = true)
+    public List<FlowerBank> find(Bouquet bouquet) {
+        List<FlowerBank> flowerBanks = flowerBankDAO.find(bouquet);
+        return flowerBanks;
     }
 
     @Transactional(readOnly = true)

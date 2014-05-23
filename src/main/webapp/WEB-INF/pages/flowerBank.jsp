@@ -39,6 +39,10 @@
             </form>
             </p>
         </security:authorize>
+        <security:authorize url="/user/profile">
+            <a href="${pageContext.request.contextPath}/user/profile" > Profile</a>
+        </security:authorize>
+
     </span>
 </div>
 
@@ -51,6 +55,11 @@
                 <td><c:out value="${flowerBank.count}"/> </td>
                 <td><c:out value="${flowerBank.flower.name}"/> </td>
                 <td><c:out value="${flowerBank.flower.color}"/> </td>
+                <td>
+                <a href="<c:url value="/flowerBank/edit/${flowerBank.id}"/>">
+                    <c:out value="Edit"/>
+                </a>
+                </td>
             </tr>
         </c:forEach>
     </table>
@@ -58,20 +67,35 @@
 
     <h1>Add Flower:</h1>
     <div>
-        <sf:form name="f" method="POST" modelAttribute="flower">
+        <form action="" method="post">
             <fieldset>
-                <sf:label path="name">Flower Name: </sf:label>
-                <sf:input path="name" id="name"/>
-                <p/>
-                <sf:label path="color">Flower color: </sf:label>
-                <sf:input path="color" id="color"/>
-                <p/>
-                <br/>
+                <%--<input type="hidden" path="flower.id" id="flower.id"/>--%>
+                <%--<input type="hidden" path="flowerBank.id" id="flowerBank.id"/>--%>
+<%--
+                <spring:bind path="flower.id">
+                    <input type="hidden" name="${status.expression}" value="${status.value}"><br />
+                </spring:bind>
+--%>
+                <spring:bind  path="flowerBank.id">
+                    <input type="hidden" name="${status.expression}" value="${status.value}"><br />
+                </spring:bind>
 
-                <input name="commit" type="submit" value="Add" />
+                <spring:bind path="flower.name">
+                    <label path="flower.name">Flower Name: </label>
+                    <input type="text" name="${status.expression}" value="${status.value}"><br />
+                </spring:bind>
+                <spring:bind path="flower.color">
+                    <label path="flower.color">Flower color: </label>
+                    <input type="text" name="${status.expression}" value="${status.value}"><br />
+                </spring:bind>
+                <spring:bind path="flowerBank.count">
+                    <label path="flowerBank.count">Count: </label>
+                    <input type="text" name="${status.expression}" value="${status.value}"><br />
+                </spring:bind>
+
+                <input name="commit" type="submit" value="Save" />
             </fieldset>
-        </sf:form>
-
+        </form>
     </div>
 </code>
 </body>

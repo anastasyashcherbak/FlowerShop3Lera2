@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Bouquets</title>
 </head>
 <body>
 
@@ -39,40 +39,46 @@
             </form>
             </p>
         </security:authorize>
+        <security:authorize url="/user/profile">
+            <a href="${pageContext.request.contextPath}/user/profile" > Profile</a>
+        </security:authorize>
+
     </span>
 </div>
 
 
-<code>
+<div>
     <h1>List Bouquets:</h1>
     <table>
         <c:forEach items="${bouquets}" var="bouquet">
             <tr>
-                <td><c:out value="${bouquet.name}"/> </td>
+                <td>
+                <a href="<c:url value="/flowerBank/get/${bouquet.id}"/>">
+                    <c:out value="${bouquet.name}"/>
+                </a>
+                </td>
+                <td>
+                <a href="<c:url value="/bouquets/edit/${bouquet.id}"/>">
+                    <c:out value="Edit"/>
+                </a>
+                </td>
             </tr>
+            <br/>
         </c:forEach>
     </table>
     <tr/>
+</div>
 
-    <%--
-        <h1>Add bouquet:</h1>
-        <div>
-            <sf:form name="f" method="POST" modelAttribute="bouquet">
-                <fieldset>
-                    <sf:label path="date">bouquet date: </sf:label>
-                    <sf:input path="date" id="date"/>
-                    <p/>
-                    <sf:label path="description">bouquet description: </sf:label>
-                    <sf:input path="description" id="description"/>
-                    <p/>
-                    <br/>
-    
-                    <input name="commit" type="submit" value="Add" />
-                </fieldset>
-            </sf:form>
-    
-        </div>
-    --%>
-</code>
+<div>
+    <h1>Add bouquet:</h1>
+    <sf:form name="f" method="POST" modelAttribute="bouquet">
+            <sf:label path="name">Name: </sf:label>
+            <sf:input path="name" id="name"/>
+            <br/>
+
+            <input name="commit" type="submit" value="Save" />
+    </sf:form>
+</div>
+
 </body>
 </html>

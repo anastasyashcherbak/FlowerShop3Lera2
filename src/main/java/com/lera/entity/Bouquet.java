@@ -19,7 +19,7 @@ public class Bouquet {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bouquet")
     private List<FlowerBank> flowerBanks;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "holiday_id", referencedColumnName = "id")
     private Holiday holiday;
 

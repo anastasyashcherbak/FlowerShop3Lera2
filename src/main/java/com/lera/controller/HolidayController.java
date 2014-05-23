@@ -61,4 +61,32 @@ public class HolidayController {
 
         return "redirect:/holidays/list";
     }
+
+    @RequestMapping(value = {"/edit/{HolidayId}"}, method = RequestMethod.GET)
+    public String flowerBankEditGET(Model model,@PathVariable String HolidayId){
+        Holiday holidayEdit = holidayService.find(Integer.parseInt(HolidayId));
+        User user = holidayEdit.getUser();
+        List<Holiday> holidays = holidayService.find(user);
+
+        model.addAttribute("holidays", holidays);
+
+        model.addAttribute("newHoliday", holidayEdit);
+
+        return "/holidays";
+    }
+
+    @RequestMapping(value = {"/edit/{HolidayId}"}, method = RequestMethod.POST)
+    public String flowerBankEditPOST(@ModelAttribute("newHoliday") Holiday holiday,
+                                     @PathVariable String HolidayId){
+        Holiday holidayEdit = holidayService.find(Integer.parseInt(HolidayId));
+        holidayEdit.setDate(holiday.getDate());
+//        User user = holidayEdit.getUser();
+//        Integer userId = user.getId();
+
+        holidayEdit.setDescription(holiday.getDescription());
+
+        holidayService.merge(holidayEdit);
+
+        return "redirect:/holidays/list";
+    }
 }

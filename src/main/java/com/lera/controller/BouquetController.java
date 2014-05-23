@@ -30,18 +30,58 @@ public class BouquetController {
     BouquetService bouquetService;
     @Autowired
     HolidayService holidayService;
+    @Autowired
+    UserService userService;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(value = {"/get/{id}"}, method = RequestMethod.GET, produces = {MediaType.TEXT_HTML_VALUE})
+    @RequestMapping(value = {"/get/{id}"}, method = RequestMethod.GET)
     public String bouquetGET(Model model, @PathVariable String id){
         log.trace("bouquetGET(), id " + id + "/n");
         Holiday holiday = holidayService.find(Integer.parseInt(id));
-
         List<Bouquet> bouquets = bouquetService.find(holiday);
+
         model.addAttribute("bouquets", bouquets);
+        model.addAttribute("bouquet", new Bouquet());
 
         return "/bouquets";
     }
+
+    @RequestMapping(value = {"/get/{id}"}, method = RequestMethod.POST)
+    public String holidayPOST(@ModelAttribute("bouquet") Bouquet bouquet, @PathVariable String id){
+        Holiday holiday = holidayService.find(Integer.parseInt(id));
+        bouquet.setHoliday(holiday);
+        bouquetService.merge(bouquet);
+
+        return "redirect:/bouquets/get/" + id;
+    }
+
+    @RequestMapping(value = {"/edit/{BouquetId}"}, method = RequestMethod.GET)
+    public String flowerBankEditGET(Model model,@PathVariable String BouquetId){
+        Bouquet bouquetEdit = bouquetService.find(Integer.parseInt(BouquetId));
+        Holiday holiday = bouquetEdit.getHoliday();
+        List<Bouquet> bouquets = bouquetService.find(holiday);
+
+        model.addAttribute("bouquets", bouquets);
+
+        model.addAttribute("bouquet", bouquetEdit);
+
+        return "bouquets";
+    }
+
+    @RequestMapping(value = {"/edit/{BouquetId}"}, method = RequestMethod.POST)
+    public String flowerBankEditPOST(@ModelAttribute("bouquet") Bouquet bouquet,
+                                     @PathVariable String BouquetId){
+        Bouquet bouquetEdit = bouquetService.find(Integer.parseInt(BouquetId));
+        bouquetEdit.setName(bouquet.getName());
+
+        Holiday holiday = bouquetEdit.getHoliday();
+        Integer holidayId = holiday.getId();
+
+        bouquetService.merge(bouquetEdit);
+
+        return "redirect:/bouquets/get/" + holidayId;
+    }
+
 }
 

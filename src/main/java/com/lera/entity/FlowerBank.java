@@ -21,7 +21,7 @@ public class FlowerBank {
     @JoinColumn(name = "flower_id")
     private Flower flower;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "bouquet_id", referencedColumnName = "id")
     private Bouquet bouquet;
 
@@ -50,6 +50,14 @@ public class FlowerBank {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Bouquet getBouquet() {
+        return bouquet;
+    }
+
+    public void setBouquet(Bouquet bouquet) {
+        this.bouquet = bouquet;
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.lera.dao;
 
+import com.lera.entity.Bouquet;
 import com.lera.entity.Flower;
 import com.lera.entity.FlowerBank;
+import com.lera.entity.Holiday;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -25,6 +27,13 @@ public class FlowerBankImplHibernate implements FlowerBankDAO {
     public FlowerBank find(Integer id) {
         FlowerBank flowerBank = (FlowerBank) sessionFactory.getCurrentSession().get(FlowerBank.class, id);
         return flowerBank;
+    }
+
+    @Override
+    public List<FlowerBank> find(Bouquet bouquet) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(FlowerBank.class);
+        List<FlowerBank> flowerBanks = criteria.add(Restrictions.like("bouquet", bouquet)).list();
+        return flowerBanks;
     }
 
     @Override

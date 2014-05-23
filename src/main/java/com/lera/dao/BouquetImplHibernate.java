@@ -1,6 +1,7 @@
 package com.lera.dao;
 
 import com.lera.entity.Bouquet;
+import com.lera.entity.Bouquet;
 import com.lera.entity.Holiday;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -27,5 +28,21 @@ public class BouquetImplHibernate implements BouquetDAO {
         List<Bouquet> bouquets = criteria.add(Restrictions.like("holiday", holiday)).list();
         return bouquets;
     }
+
+    @Override
+    public Bouquet find(Integer id) {
+        return (Bouquet) sessionFactory.getCurrentSession().get(Bouquet.class, id);
+    }
+
+    @Override
+    public Bouquet merge(Bouquet Bouquet) {
+        return (Bouquet)sessionFactory.getCurrentSession().merge(Bouquet);
+    }
+
+    @Override
+    public void delete(Bouquet Bouquet) {
+        sessionFactory.getCurrentSession().delete(Bouquet);
+    }
+
 }
 

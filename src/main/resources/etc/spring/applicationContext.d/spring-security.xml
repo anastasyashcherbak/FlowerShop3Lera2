@@ -7,16 +7,11 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http pattern="/errors/**" security="none"/>
-
-    <!--<http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager"-->
-    <http use-expressions="true" authentication-manager-ref="authenticationManager"
-          realm="UserList">
-        <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/user/**" access="isAnonymous()"/>
-
-        <intercept-url pattern="/flowerBank/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+    <http use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
+        <intercept-url pattern="/user/login" access="isAnonymous()"/>
+        <intercept-url pattern="/user/register" access="isAnonymous()"/>
+        <intercept-url pattern="/user/profile" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
 
         <form-login login-page="/user/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"
@@ -24,6 +19,9 @@
         <logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"/>
 
         <remember-me token-validity-seconds="1209600" user-service-ref="userServiceOverJdbc"/>
+
+        <session-management invalid-session-url="/timeout">
+        </session-management>
     </http>
 
     <authentication-manager id="authenticationManager">

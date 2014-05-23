@@ -1,7 +1,6 @@
 package com.lera.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public class Holiday {
     }
 
     public void assignToUser(User user){
-        this.user = user;
+        this.setUser(user);
     }
 
     public Integer getId() {
@@ -53,5 +52,13 @@ public class Holiday {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

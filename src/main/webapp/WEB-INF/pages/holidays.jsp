@@ -39,6 +39,10 @@
             </form>
             </p>
         </security:authorize>
+        <security:authorize url="/user/profile">
+            <a href="${pageContext.request.contextPath}/user/profile" > Profile</a>
+        </security:authorize>
+
     </span>
 </div>
 
@@ -57,6 +61,11 @@
                 <a href="<c:url value="/bouquets/get/${holiday.id}"/>">
                     <c:out value="${holiday.date}"/>
                 </a>
+                </td>
+                <td>
+                    <a href="<c:url value="/holidays/edit/${holiday.id}"/>">
+                        <c:out value="Edit"/>
+                    </a>
                 </td>
 
             </tr>
@@ -77,7 +86,7 @@
                 <p/>
                 <br/>
 
-                <input name="commit" type="submit" value="Add" />
+                <input name="commit" type="submit" value="Save" />
             </fieldset>
         </sf:form>
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 /**
  * Created by panser on 5/18/14.
  */
@@ -64,6 +66,15 @@ public class SpringSecurityController {
     public String profilePOST(@ModelAttribute("user") User userFromForm){
         userService.merge(userFromForm);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String profileManageUsersGET(Model model){
+        List<User> users = userService.findAll();
+
+        model.addAttribute("users", users);
+
+        return "user/users";
     }
 
 }

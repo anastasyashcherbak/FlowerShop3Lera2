@@ -68,6 +68,7 @@ public class SpringSecurityController {
         return "redirect:/";
     }
 
+/*
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String profileManageUsersGET(Model model){
         List<User> users = userService.findAll();
@@ -76,5 +77,6 @@ public class SpringSecurityController {
 
         return "user/users";
     }
+*/
 
 }

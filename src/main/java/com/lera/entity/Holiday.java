@@ -22,7 +22,7 @@ public class Holiday {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "holiday")
     private List<Bouquet> bouquets;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

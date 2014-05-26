@@ -89,4 +89,12 @@ public class HolidayController {
 
         return "redirect:/holidays/list";
     }
+
+    @RequestMapping(value = {"/delete/{HolidayId}"}, method = RequestMethod.GET)
+    public String flowerBankDeleteGET(@PathVariable String HolidayId){
+        Holiday holidayDelete = holidayService.find(Integer.parseInt(HolidayId));
+        holidayService.delete(holidayDelete);
+
+        return "redirect:/holidays/list";
+    }
 }

@@ -67,6 +67,11 @@
                         <c:out value="Edit"/>
                     </a>
                 </td>
+                <td>
+                    <a href="<c:url value="/holidays/delete/${holiday.id}"/>">
+                        <c:out value="Delete"/>
+                    </a>
+                </td>
 
             </tr>
         </c:forEach>

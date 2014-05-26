@@ -21,7 +21,7 @@ public class FlowerBank {
     @JoinColumn(name = "flower_id")
     private Flower flower;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "bouquet_id", referencedColumnName = "id")
     private Bouquet bouquet;
 

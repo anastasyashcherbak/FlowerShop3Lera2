@@ -95,6 +95,6 @@ public class HolidayController {
         Holiday holidayDelete = holidayService.find(Integer.parseInt(HolidayId));
         holidayService.delete(holidayDelete);
 
-        return "redirect:/holidays/list";
+        return "redirect:/";
     }
 }

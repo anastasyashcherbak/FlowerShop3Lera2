@@ -83,5 +83,13 @@ public class BouquetController {
         return "redirect:/bouquets/get/" + holidayId;
     }
 
+    @RequestMapping(value = {"/delete/{HolidayId}"}, method = RequestMethod.GET)
+    public String flowerBankDeleteGET(@PathVariable String HolidayId){
+        Bouquet bouquetEdit = bouquetService.find(Integer.parseInt(HolidayId));
+        bouquetService.delete(bouquetEdit);
+
+        return "redirect:/";
+    }
+
 }
 

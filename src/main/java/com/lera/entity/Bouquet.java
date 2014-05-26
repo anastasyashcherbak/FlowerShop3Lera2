@@ -16,10 +16,10 @@ public class Bouquet {
     private String name;
 
     @ElementCollection(fetch=FetchType.LAZY)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bouquet")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "bouquet")
     private List<FlowerBank> flowerBanks;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "holiday_id", referencedColumnName = "id")
     private Holiday holiday;
 

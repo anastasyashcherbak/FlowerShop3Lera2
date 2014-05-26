@@ -14,4 +14,9 @@ public class IndexController {
     public String index(){
         return "redirect:/holidays/list";
     }
+
+    @RequestMapping(value = {"/timeout"}, method = RequestMethod.GET)
+    public String timeout(){
+        return "redirect:/";
+    }
 }

@@ -3,6 +3,7 @@ package com.lera.controller;
 import com.lera.entity.Bouquet;
 import com.lera.entity.Flower;
 import com.lera.entity.FlowerBank;
+import com.lera.entity.Holiday;
 import com.lera.service.BouquetService;
 import com.lera.service.FlowerBankService;
 import org.slf4j.Logger;
@@ -83,4 +84,13 @@ public class FlowerBankController {
 
         return "redirect:/flowerBank/get/" + bouquetId;
     }
+
+    @RequestMapping(value = {"/delete/{HolidayId}"}, method = RequestMethod.GET)
+    public String flowerBankDeleteGET(@PathVariable String HolidayId){
+        FlowerBank flowerBankEdit = flowerBankService.find(Integer.parseInt(HolidayId));
+        flowerBankService.delete(flowerBankEdit);
+
+        return "redirect:/";
+    }
+
 }
